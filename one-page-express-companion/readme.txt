@@ -2,8 +2,8 @@
 Contributors: horearadu, extendthemes
 Tags: onepage companion drag drop builder
 Requires at least: 5.6
-Stable tag: 1.6.42
-Tested up to: 6.7
+Stable tag: 1.6.43
+Tested up to: 6.8
 License: GPLv3 or later
 License URI: https://www.gnu.org/licenses/gpl-3.0.en.html
 
