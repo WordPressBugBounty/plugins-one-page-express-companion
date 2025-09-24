@@ -1377,12 +1377,13 @@
                         CP_Customizer.preview.blur();
 
                         var currentChangeset = CP_Customizer.utils.deepClone(wp.customize.previewer.query());
-
+                        var extend_nonce = CP_Customizer.options("extend_nonce");
                         var data = _.extend(currentChangeset, {
                             action: 'cp_shortcode_refresh',
                             shortcode: btoa(shortcode),
                             context: context,
-                            _: Date.now()
+                            _: Date.now(),
+                            _wpnonce: extend_nonce
                         });
 
                         $node.html('<div class="shortcode-temp-placeholder"></div>');

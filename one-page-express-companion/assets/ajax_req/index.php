@@ -4,6 +4,10 @@
 add_action(
 	'wp_ajax_cp_list_fa',
 	function () {
+        check_ajax_referer('extend_nonce');
+        if ( ! is_user_logged_in() || ! current_user_can( 'edit_theme_options' ) ) {
+            die();
+        }
 		$result = array();
 		$icons  = ( require __DIR__ . '/fa-icons-list.php' );
 

@@ -129,6 +129,7 @@ class Notification {
 						jQuery('[data-cp-notification-name="<?php echo esc_attr( $self->name ); ?>"]').on('click', '.notice-dismiss', function () {
 							var data = {
 								'action': 'cp_dismiss_notification',
+                                '_wpnonce': '<?php echo wp_create_nonce( 'extend_nonce' );?>',
 								'notification': '<?php echo esc_attr( $self->name ); ?>'
 							};
 							jQuery.post(ajaxurl, data).done(function (response) {

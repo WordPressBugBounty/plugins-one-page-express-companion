@@ -682,7 +682,8 @@ function one_page_express_discount_notice_script() {
 				jQuery.ajax({
 					url: ajaxurl,
 					data: {
-						action: 'one_page_express_discount_notice_dismiss'
+						action: 'one_page_express_discount_notice_dismiss',
+                        _wpnonce: '<?php echo wp_create_nonce( 'extend_nonce' );?>'
 					}
 				});
 			})
@@ -694,6 +695,10 @@ function one_page_express_discount_notice_script() {
 add_action(
 	'wp_ajax_one_page_express_discount_notice_dismiss',
 	function () {
+        check_ajax_referer('extend_nonce');
+        if ( ! is_user_logged_in() || ! current_user_can( 'edit_theme_options' ) ) {
+            die();
+        }
 		update_option( 'one-page-express-' . one_page_express_discount_end_date() . '-notice-dismissed', 1 );
 	}
 );

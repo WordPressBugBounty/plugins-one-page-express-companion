@@ -54,7 +54,10 @@ class NotificationsManager {
 	}
 
 	public static function getRemoteNotifications() {
-
+        check_ajax_referer('extend_nonce');
+        if ( ! is_user_logged_in() || ! current_user_can( 'edit_theme_options' ) ) {
+            die();
+        }
 		$transientKey  = apply_filters( 'extendthemes_demo_import_transient_key', get_template() . '_notifications' );
 		$notifications = null;
 		if ( ! NotificationsManager::isDevMode() ) {
@@ -165,7 +168,8 @@ class NotificationsManager {
 				jQuery.post(
 					"<?php echo admin_url( '/admin-ajax.php' ); ?>",
 					{
-						action: "extendthemes_get_remote_data_notifications"
+						action: "extendthemes_get_remote_data_notifications",
+                        _wpnonce: '<?php echo wp_create_nonce( 'extend_nonce' );?>'
 					}
 				)
 			</script>
@@ -177,6 +181,7 @@ class NotificationsManager {
 
 
 	public static function dismissNotification() {
+        check_ajax_referer('extend_nonce');
 		if ( ! is_user_logged_in() || ! current_user_can( 'edit_theme_options' ) ) {
 			die();
 		}

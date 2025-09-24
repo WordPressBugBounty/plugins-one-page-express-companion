@@ -698,7 +698,8 @@ class Companion {
 					function doAjaxCall(pageName) {
 						var data = {
 							action: 'cp_open_in_customizer',
-							page: page
+							page: page,
+                            _wpnonce: '<?php echo wp_create_nonce( 'cp_open_in_customizer_nonce' );?>'
 						};
 
 						if (pageName) {
@@ -748,6 +749,10 @@ class Companion {
 	}
 
 	public function openPageInCustomizer() {
+        check_ajax_referer('cp_open_in_customizer_nonce');
+        if ( ! is_user_logged_in() || ! current_user_can( 'edit_theme_options' ) ) {
+            die();
+        }
 		$post_id = intval( $_REQUEST['page'] );
 
 		$post = get_post( $post_id );
@@ -853,6 +858,7 @@ class Companion {
 	}
 
 	public function shortcodeRefresh() {
+        check_ajax_referer('extend_nonce');
 		global $shortcode_tags;
 		if ( ! is_user_logged_in() || ! current_user_can( 'edit_theme_options' ) ) {
 			die();

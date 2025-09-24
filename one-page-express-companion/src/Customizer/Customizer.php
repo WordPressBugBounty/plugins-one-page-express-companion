@@ -164,6 +164,7 @@ class Customizer {
 						'themeURL'             => get_template_directory_uri(),
 						'isMultipage'          => $self->companion()->isMultipage(),
 						'restURL'              => get_rest_url(),
+                        'extend_nonce' => wp_create_nonce( 'extend_nonce' )
 					)
 				);
 				?>
@@ -226,7 +227,8 @@ class Customizer {
 					var page = top.CP_Customizer.preview.data().pageID;
 					jQuery.post(ajaxurl, {
 						action: 'cp_open_in_customizer',
-						page: page
+						page: page,
+                        _wpnonce: '<?php echo wp_create_nonce( 'cp_open_in_customizer_nonce' );?>'
 					}).done(function(response) {
 						window.location = response.trim();
 					});
@@ -330,6 +332,7 @@ class Customizer {
 						'pageURL'      => get_page_link(),
 						'includesURL'  => includes_url(),
 						'mod_defaults' => apply_filters( 'cloudpress\customizer\mod_defaults', array() ),
+                        'extend_nonce' => wp_create_nonce( 'extend_nonce' )
 					)
 				);
 				?>
