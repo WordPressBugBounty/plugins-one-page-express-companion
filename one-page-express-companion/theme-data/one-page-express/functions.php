@@ -409,6 +409,18 @@ add_action(
 		$companion->restoreFrontPage();
 	}
 );
+add_action(
+    'admin_head',
+    function () {
+        ?>
+        <style type="text/css">
+            body.block-editor-page .block-editor-inserter__block-patterns-tabs-container .block-editor-inserter__category-panel .block-editor-block-patterns-list__item{
+                height: auto;
+            }
+        </style>
+        <?php
+    }
+);
 
 function one_page_express_get_front_page_content( $companion ) {
 	$defaultSections = array( 'stripped-coloured-icon-boxes', 'about-big-images-section', 'content-image-left', 'content-image-right', 'portfolio-full-section', 'testimonials-boxed-section', 'cta-blue-section', 'team-colors-section', 'numbers-section', 'blog-section', 'contact-section' );
